@@ -27,6 +27,16 @@ public class MainGUI {
     private JList list1;
     private JPanel manageAuthorsPanel;
     private JPanel managePublishersPanel;
+    private JList list2;
+    private JTextField textField7;
+    private JTextField textField8;
+    private JList list3;
+    private JButton button7;
+    private JButton button8;
+    private JButton button9;
+    private JButton button10;
+    private JButton button11;
+    private JButton button12;
 
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
