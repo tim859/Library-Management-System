@@ -13,30 +13,55 @@ public class MainGUI {
     private JLabel mainMenuLabel;
     private JPanel parentPanel;
     private JPanel manageBooksPanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JList list1;
+    private JTextField manageBooksBookTitleTextField;
+    private JTextField manageBooksBookYearTextField;
+    private JTextField manageBooksBookSubjectTextField;
+    private JTextField manageBooksBookAuthorTextField;
+    private JTextField manageBooksBookPublisherTextField;
+    private JButton manageBooksAddBookButton;
+    private JButton manageBooksDeleteBookButton;
+    private JButton manageBooksEditBookButton;
+    private JButton manageBooksClearFieldsButton;
+    private JButton manageBooksMainMenuButton;
+    private JButton manageBooksSearchBooksButton;
+    private JList manageBooksListOfBooks;
     private JPanel manageAuthorsPanel;
     private JPanel managePublishersPanel;
-    private JList list2;
-    private JTextField textField7;
-    private JTextField textField8;
-    private JList list3;
-    private JButton button7;
-    private JButton button8;
-    private JButton button9;
-    private JButton button10;
-    private JButton button11;
-    private JButton button12;
+    private JTextField manageAuthorsAuthorFirstNameTextField;
+    private JTextField manageAuthorsAuthorSurnameTextField;
+    private JList manageAuthorsListOfAuthorsList;
+    private JList manageAuthorsListOfBooksBySelectedAuthorList;
+    private JLabel manageBooksManageBooksLabel;
+    private JLabel manageBooksListOfBooksList;
+    private JLabel manageBooksBookTitleLabel;
+    private JLabel manageBooksBookYearLabel;
+    private JLabel manageBooksBookSubjectLabel;
+    private JLabel manageBooksBookAuthorLabel;
+    private JLabel manageBooksBookPublisherLabel;
+    private JButton manageAuthorsAddAuthorButton;
+    private JButton manageAuthorsDeleteAuthorButton;
+    private JButton manageAuthorsEditAuthorButton;
+    private JButton manageAuthorsClearFieldsButton;
+    private JButton manageAuthorsMainMenuButton;
+    private JButton manageAuthorsSearchAuthorsButton;
+    private JLabel manageAuthorsManageAuthorsLabel;
+    private JLabel manageAuthorsAuthorFirstNameLabel;
+    private JLabel manageAuthorsAuthorSurnameLabel;
+    private JLabel manageAuthorsListOfAuthorsLabel;
+    private JLabel manageAuthorsListOfBooksBySelectedAuthorLabel;
+    private JList managePublishersListOfPublishersList;
+    private JTextField managePublishersPublisherNameTextField;
+    private JList managePublishersListOfBooksBySelectedPublisherList;
+    private JButton managePublishersSearchPublishersButton;
+    private JButton managePublishersAddPublisherButton;
+    private JButton managePublishersDeletePublisherButton;
+    private JButton managePublishersEditPublisherButton;
+    private JButton managePublishersClearFieldsButton;
+    private JButton managePublishersMainMenuButton;
+    private JLabel managePublishersManagePublishersLabel;
+    private JLabel managePublishersListOfPublishersLabel;
+    private JLabel managePublishersPublisherNameLabel;
+    private JLabel managePublishersListOfBooksBySelectedPublisherLabel;
 
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -54,29 +79,51 @@ public class MainGUI {
         mainMenuManageBooksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parentPanel.removeAll();
-                parentPanel.add(manageBooksPanel);
-                parentPanel.repaint();
-                parentPanel.revalidate();
+                changePanel(manageBooksPanel);
             }
         });
         mainMenuManageAuthorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parentPanel.removeAll();
-                parentPanel.add(manageAuthorsPanel);
-                parentPanel.repaint();
-                parentPanel.revalidate();
+                changePanel(manageAuthorsPanel);
             }
         });
         mainMenuManagePublishersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parentPanel.removeAll();
-                parentPanel.add(managePublishersPanel);
-                parentPanel.repaint();
-                parentPanel.revalidate();
+                changePanel(managePublishersPanel);
             }
         });
+        manageBooksMainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(mainMenuPanel);
+            }
+        });
+        manageAuthorsMainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(mainMenuPanel);
+            }
+        });
+        managePublishersMainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(mainMenuPanel);
+            }
+        });
+        mainMenuQuitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    private void changePanel(JPanel newPanel) {
+        parentPanel.removeAll();
+        parentPanel.add(newPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
     }
 }
