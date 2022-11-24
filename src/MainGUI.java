@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class MainGUI {
     private JPanel mainPanel;
     private JButton mainMenuManageBooksButton;
@@ -63,6 +64,10 @@ public class MainGUI {
     private JLabel managePublishersPublisherNameLabel;
     private JLabel managePublishersListOfBooksBySelectedPublisherLabel;
 
+    BookHandler bookHandler = new BookHandler();
+    AuthorHandler authorHandler = new AuthorHandler();
+    PublisherHandler publisherHandler = new PublisherHandler();
+
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
 
@@ -116,6 +121,78 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        manageBooksSearchBooksButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookHandler.searchForBook();
+            }
+        });
+        manageBooksAddBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookHandler.addBook();
+            }
+        });
+        manageBooksDeleteBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookHandler.deleteBook();
+            }
+        });
+        manageBooksEditBookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bookHandler.editBook();
+            }
+        });
+        manageAuthorsSearchAuthorsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                authorHandler.searchAuthor();
+            }
+        });
+        manageAuthorsAddAuthorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                authorHandler.addAuthor();
+            }
+        });
+        manageAuthorsDeleteAuthorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                authorHandler.deleteAuthor();
+            }
+        });
+        manageAuthorsEditAuthorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                authorHandler.editAuthor();
+            }
+        });
+        managePublishersSearchPublishersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                publisherHandler.searchPublisher();
+            }
+        });
+        managePublishersAddPublisherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                publisherHandler.addPublisher();
+            }
+        });
+        managePublishersDeletePublisherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                publisherHandler.deletePublisher();
+            }
+        });
+        managePublishersEditPublisherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                publisherHandler.editPublisher();
             }
         });
     }
