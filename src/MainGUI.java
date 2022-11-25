@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Vector;
 
 
 public class MainGUI {
@@ -25,7 +29,9 @@ public class MainGUI {
     private JButton manageBooksClearFieldsButton;
     private JButton manageBooksMainMenuButton;
     private JButton manageBooksSearchBooksButton;
-    private JList manageBooksListOfBooks;
+
+    private DefaultListModel<Book> bookListModel;
+    private JList<Book> manageBooksListOfBooks;
     private JPanel manageAuthorsPanel;
     private JPanel managePublishersPanel;
     private JTextField manageAuthorsAuthorFirstNameTextField;
@@ -77,9 +83,15 @@ public class MainGUI {
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.pack();
         mainMenuFrame.setVisible(true);
+
+        BookListHandler.main();
     }
 
     public MainGUI() {
+        bookListModel = new DefaultListModel<>();
+
+        manageBooksListOfBooks = new JList<>(bookListModel);
+
         mainMenuLabel.setFont(titleFont);
         mainMenuManageBooksButton.addActionListener(new ActionListener() {
             @Override
@@ -126,21 +138,42 @@ public class MainGUI {
         manageBooksSearchBooksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bookHandler.searchForBook();
+
+                List<Book> searchedBookList = new ArrayList<>();
+                if (Objects.equals(manageBooksBookYearTextField.getText(), "")) {
+                    // year field empty (trying to parse an int when its an empty string throws an error so needs to be handled separately
+                    searchedBookList = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 1, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                }
+                else {
+                    // year field not empty
+                    searchedBookList = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                }
+                System.out.println(searchedBookList);
+
+                // manageBooksListOfBooks = new JList<>(bookListModel);
             }
         });
         manageBooksAddBookButton.addActionListener(new ActionListener() {
             @Override
 
             public void actionPerformed(ActionEvent e) {
-                final Book newBook = new Book(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
-                bookHandler.addBook(newBook);
+                if (!Objects.equals(manageBooksBookYearTextField.getText(), "")) {
+                    if (bookHandler.addBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText())) {
+                        popUpMessage("Book added successfully");
+                    }
+                    else {
+                        popUpMessage("Failed to add book");
+                    }
+                }
+                else {
+                    popUpMessage("Failed to add book");
+                }
             }
         });
         manageBooksDeleteBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bookHandler.deleteBook();
+                //bookHandler.deleteBook();
             }
         });
         manageBooksEditBookButton.addActionListener(new ActionListener() {
@@ -204,5 +237,11 @@ public class MainGUI {
         parentPanel.add(newPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+    }
+
+    void popUpMessage(String message) {
+        JFrame parent = new JFrame();
+
+        JOptionPane.showMessageDialog(parent, message);
     }
 }

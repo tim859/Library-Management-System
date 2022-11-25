@@ -3,13 +3,8 @@ import java.sql.*;
 public class BookDBHandler {
 
     // this address will need to be changed based on where the database is stored locally
-    String jdbcUrl = "jdbc:sqlite:/D:\\University of Greenwich\\Year 3\\JVM\\JVM Coursework\\Databases\\libraryDB.db"; // this address will need to be changed based on where the database is stored locally
+    String jdbcUrl = "jdbc:sqlite:/D:\\University of Greenwich\\Year 3\\JVM\\JVM Coursework\\Databases\\libraryDB.db";
     Connection connection;
-
-    public Book[] searchDBForBooks() {
-        Book[] books = new Book[0];
-        return books;
-    }
 
     public boolean addBookToDB(Book book) {
 
@@ -47,6 +42,22 @@ public class BookDBHandler {
     }
 
     public boolean deleteBookFromDB(Book book) {
+
+        String title = book.getTitle();
+        String author = book.getAuthor();
+        int year = book.getYearOfPublication();
+        String publisher = book.getPublisher();
+        String subject = book.getSubject();
+
+//        try {
+//            connection = DriverManager.getConnection(jdbcUrl);
+//
+//            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM books WHERE ")
+//        }
+        return false;
+    }
+
+    public boolean editBookInDB(Book oldBook, Book newBook) {
 
         return false;
     }
