@@ -5,6 +5,22 @@
     <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
+  <component name="DBNavigator.Project.DataExportManager">
+    <export-instructions>
+      <create-header value="true" />
+      <friendly-headers value="false" />
+      <quote-values-containing-separator value="true" />
+      <quote-all-values value="false" />
+      <value-separator value="" />
+      <file-name value="" />
+      <file-location value="" />
+      <scope value="GLOBAL" />
+      <destination value="FILE" />
+      <format value="EXCEL" />
+      <charset value="windows-1252" />
+      <charset value="windows-1252" />
+    </export-instructions>
+  </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
@@ -18,6 +34,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="76355ee7-8d56-49f0-bb83-562e72444e74" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -33,9 +52,18 @@
     </execution-history>
     <argument-values-cache />
   </component>
+  <component name="DBNavigator.Project.ObjectDependencyManager">
+    <last-used-dependency-type value="INCOMING" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ParserDiagnosticsManager">
+    <diagnostics-history />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -252,12 +280,18 @@
           <content-type name="DTD" enabled="true" />
           <content-type name="HTML" enabled="true" />
           <content-type name="XHTML" enabled="true" />
+          <content-type name="CSS" enabled="true" />
           <content-type name="Java" enabled="true" />
           <content-type name="SQL" enabled="true" />
           <content-type name="PL/SQL" enabled="true" />
+          <content-type name="JavaScript" enabled="true" />
           <content-type name="JSON" enabled="true" />
           <content-type name="JSON5" enabled="true" />
+          <content-type name="JSP" enabled="true" />
+          <content-type name="JSPx" enabled="true" />
           <content-type name="Groovy" enabled="true" />
+          <content-type name="FTL" enabled="true" />
+          <content-type name="VTL" enabled="true" />
           <content-type name="AIDL" enabled="true" />
           <content-type name="YAML" enabled="true" />
           <content-type name="Manifest" enabled="true" />
@@ -524,5 +558,8 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
   </component>
 </project>

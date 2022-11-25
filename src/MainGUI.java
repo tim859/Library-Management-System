@@ -131,8 +131,10 @@ public class MainGUI {
         });
         manageBooksAddBookButton.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
-                bookHandler.addBook();
+                final Book newBook = new Book(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                bookHandler.addBook(newBook);
             }
         });
         manageBooksDeleteBookButton.addActionListener(new ActionListener() {
