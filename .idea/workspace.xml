@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="Remade GUI form with updated design">
-      <change afterPath="$PROJECT_DIR$/src/BookDBHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Databases/libraryDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/libraryDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library Management System.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Library Management System.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SQLiteJDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SQLiteJDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookDBHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +50,7 @@
     "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "440",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/University of Greenwich/Year 3/JVM/JVM Coursework/sqlite-jdbc-3.40.0.0.jar",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
@@ -125,6 +120,7 @@
       <workItem from="1669311994007" duration="1149000" />
       <workItem from="1669323563032" duration="703000" />
       <workItem from="1669324289429" duration="3073000" />
+      <workItem from="1669378833137" duration="738000" />
     </task>
     <task id="LOCAL-00001" summary="Remade GUI form with updated design">
       <created>1667483447529</created>
