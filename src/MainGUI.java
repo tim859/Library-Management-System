@@ -83,8 +83,6 @@ public class MainGUI {
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.pack();
         mainMenuFrame.setVisible(true);
-
-        BookListHandler.main();
     }
 
     public MainGUI() {
@@ -228,6 +226,29 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 publisherHandler.editPublisher();
+            }
+        });
+        manageBooksClearFieldsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                manageBooksBookTitleTextField.setText("");
+                manageBooksBookAuthorTextField.setText("");
+                manageBooksBookYearTextField.setText("");
+                manageBooksBookPublisherTextField.setText("");
+                manageBooksBookSubjectTextField.setText("");
+            }
+        });
+        manageAuthorsClearFieldsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                manageAuthorsAuthorFirstNameTextField.setText("");
+                manageAuthorsAuthorSurnameTextField.setText("");
+            }
+        });
+        managePublishersClearFieldsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                managePublishersPublisherNameTextField.setText("");
             }
         });
     }

@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="Added sqlite tools, sqlite jdbc, and bookDBHandler">
-      <change afterPath="$PROJECT_DIR$/src/BookListHandler.java" afterDir="false" />
+    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="added functionality to add a book as well as search for a book">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Databases/libraryDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/libraryDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Book.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Book.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BookDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookDBHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BookHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookListHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SQLiteJDBC.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +124,8 @@
       <workItem from="1669324289429" duration="3073000" />
       <workItem from="1669376455055" duration="7333000" />
       <workItem from="1669399263412" duration="11138000" />
+      <workItem from="1669415353840" duration="907000" />
+      <workItem from="1669419834687" duration="2427000" />
     </task>
     <task id="LOCAL-00001" summary="Remade GUI form with updated design">
       <created>1667483447529</created>
@@ -142,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669376566004</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added functionality to add a book as well as search for a book">
+      <created>1669415437839</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669415437839</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +168,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remade GUI form with updated design" />
     <MESSAGE value="Added sqlite tools, sqlite jdbc, and bookDBHandler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added sqlite tools, sqlite jdbc, and bookDBHandler" />
+    <MESSAGE value="added functionality to add a book as well as search for a book" />
+    <option name="LAST_COMMIT_MESSAGE" value="added functionality to add a book as well as search for a book" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

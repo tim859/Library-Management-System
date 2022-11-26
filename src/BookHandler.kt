@@ -3,7 +3,10 @@ class BookHandler {
     private var bookDBHandler = BookDBHandler()
     fun searchForBook(bookTitle: String, bookAuthor: String, bookYear: Int, bookPublisher: String, bookSubject: String): List<Book> {
 
-        return BookListHandler.searchBookList(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
+        // searchedBookList can be stored for later manipulation
+        // val searchedBookList = bookDBHandler.searchDBForBook(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
+
+        return bookDBHandler.searchDBForBook(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
     }
 
     fun addBook(bookTitle: String, bookAuthor: String, bookYear: Int, bookPublisher: String, bookSubject: String): Boolean {
@@ -13,16 +16,10 @@ class BookHandler {
             return false
         }
 
-        // acquired bookID and added book to list
-        val bookID = BookListHandler.addBookToList(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
-
-        // created new Book object with newly acquired bookID and other arguments passed into class
-        val newBook = Book(bookID, bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
-
         // use addBookToDB method to not only add book to database but also to get a boolean back that confirms whether
         // the book was successfully added to the database. This information is then used to get MainGUI to
         // display a success message or a failure message
-        return bookDBHandler.addBookToDB(newBook)
+        return bookDBHandler.addBookToDB(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
     }
 
     fun deleteBook(book: Book) {
