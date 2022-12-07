@@ -4,12 +4,12 @@ import java.util.List;
 
 public class BookDBHandler {
 
-    // this address will need to be changed based on where the database is stored locally
-    // tim home pc address: "jdbc:sqlite:/D:\\University of Greenwich\\Year 3\\JVM\\JVM Coursework\\Databases\\libraryDB.db"
-    // tim laptop address: "jdbc:sqlite:/C:\\Uni\\Com Sci\\Year 3\\JVM Programming Languages\\Coursework\\Library Management System\\Databases\\libraryDB.db"
+    // the database address will need to be changed based on where the database is stored locally
+
+    String jdbcUrl = "jdbc:sqlite:/D:\\University of Greenwich\\Year 3\\JVM\\JVM Coursework\\Databases\\libraryDB.db"; // tim home pc address
+    // String jdbcUrl = "jdbc:sqlite:/C:\\Uni\\Com Sci\\Year 3\\JVM Programming Languages\\Coursework\\Library Management System\\Databases\\libraryDB.db"; // tim laptop address
     // atif home pc address:
     // atif laptop address:
-    String jdbcUrl = "jdbc:sqlite:/C:\\Uni\\Com Sci\\Year 3\\JVM Programming Languages\\Coursework\\Library Management System\\Databases\\libraryDB.db";
     Connection connection;
 
     public List<Book> getAllBooksInDB() {
@@ -29,9 +29,9 @@ public class BookDBHandler {
 
                 int id = bookResult.getInt("rowid");
                 String title = bookResult.getString("bookTitle");
-                String author = bookResult.getString("bookAuthor");
+                int author = bookResult.getInt("bookAuthor"); // author foreign key
                 int year = bookResult.getInt("bookYearOfPublication");
-                String publisher = bookResult.getString("bookPublisher");
+                int publisher = bookResult.getInt("bookPublisher"); // publisher foreign key
                 String subject = bookResult.getString("bookSubject");
 
                 bookList.add(new Book(id, title, author, year, publisher, subject));
@@ -45,7 +45,7 @@ public class BookDBHandler {
         return bookList;
     }
 
-    public List<Book> searchDBForBook(String bookTitle, String bookAuthor, int bookYear, String bookPublisher, String bookSubject) {
+    public List<Book> searchDBForBook(String bookTitle, int bookAuthor, int bookYear, int bookPublisher, String bookSubject) {
 
         List<Book> searchedBookList = new ArrayList<>();
 
@@ -64,31 +64,32 @@ public class BookDBHandler {
 
                 int id = bookResult.getInt("rowid");
                 String title = bookResult.getString("bookTitle");
-                String author = bookResult.getString("bookAuthor");
+                int author = bookResult.getInt("bookAuthor"); // author foreign key
                 int year = bookResult.getInt("bookYearOfPublication");
-                String publisher = bookResult.getString("bookPublisher");
+                int publisher = bookResult.getInt("bookPublisher"); // publisher foreign key
                 String subject = bookResult.getString("bookSubject");
 
                 // search function
-                if ((title.equals(bookTitle) || (author.equals(bookAuthor)) || (year == bookYear) || publisher.equals(bookPublisher) || subject.equals(bookSubject))) {
+                if ((title.equals(bookTitle) || (author == bookAuthor) || (year == bookYear) || publisher == bookPublisher || subject.equals(bookSubject))) {
                     searchedBookList.add(new Book(id, title, author, year, publisher, subject));
                 }
-
-                // add record to array of books
-
             }
-
-            // implement searches here
-
         } catch (SQLException e) {
             System.out.println("Error connecting to SQL database");
             e.printStackTrace();
         }
-
         return searchedBookList;
     }
 
-    public boolean addBookToDB(String bookTitle, String bookAuthor, int bookYear, String bookPublisher, String bookSubject) {
+//    public List<Book> searchDBForBooksByAuthor() {
+//
+//    }
+//
+//    public List<Book> searchDBForBooksByPublisher() {
+//
+//    }
+
+    public boolean addBookToDB(String bookTitle, int bookAuthor, int bookYear, int bookPublisher, String bookSubject) {
 
         try {
             connection = DriverManager.getConnection(jdbcUrl);
@@ -96,16 +97,12 @@ public class BookDBHandler {
             // apparently using PreparedStatement protects from SQL injection, not really a concern but its good practise to use it
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, bookTitle);
-            preparedStatement.setString(2, bookAuthor);
+            preparedStatement.setInt(2, bookAuthor);
             preparedStatement.setInt(3, bookYear);
-            preparedStatement.setString(4, bookPublisher);
+            preparedStatement.setInt(4, bookPublisher);
             preparedStatement.setString(5, bookSubject);
 
-            System.out.println("sql query " + preparedStatement.toString());
-
             preparedStatement.executeUpdate();
-
-            System.out.println("Insert successful");
 
             return true;
 
@@ -127,11 +124,7 @@ public class BookDBHandler {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM books WHERE ROWID = ?");
             preparedStatement.setInt(1, id);
 
-            System.out.println("sql query " + preparedStatement.toString());
-
             preparedStatement.executeUpdate();
-
-            System.out.println("Deletion successful");
 
             return true;
 
@@ -142,13 +135,13 @@ public class BookDBHandler {
         }
     }
 
-    public boolean editBookInDB(Book book) { // untested
+    public boolean editBookInDB(Book book) {
 
         int bookID = book.getBookID();
         String bookTitle = book.getTitle();
-        String bookAuthor = book.getAuthor();
+        int bookAuthor = book.getAuthor();
         int bookYear = book.getYearOfPublication();
-        String bookPublisher = book.getPublisher();
+        int bookPublisher = book.getPublisher();
         String bookSubject = book.getSubject();
 
         try {
@@ -156,17 +149,13 @@ public class BookDBHandler {
 
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE books SET bookTitle = ?, bookAuthor = ?, bookYearOfPublication = ?, bookPublisher = ?, bookSubject = ? WHERE ROWID = ?");
             preparedStatement.setString(1, bookTitle);
-            preparedStatement.setString(2, bookAuthor);
+            preparedStatement.setInt(2, bookAuthor);
             preparedStatement.setInt(3, bookYear);
-            preparedStatement.setString(4, bookPublisher);
+            preparedStatement.setInt(4, bookPublisher);
             preparedStatement.setString(5, bookSubject);
             preparedStatement.setInt(6, bookID);
 
-            System.out.println("sql query " + preparedStatement.toString());
-
             preparedStatement.executeUpdate();
-
-            System.out.println("Update successful");
 
             return true;
 

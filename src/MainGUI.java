@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,25 +23,21 @@ public class MainGUI {
     private JTextField manageBooksBookTitleTextField;
     private JTextField manageBooksBookYearTextField;
     private JTextField manageBooksBookSubjectTextField;
-    private JTextField manageBooksBookAuthorTextField;
-    private JTextField manageBooksBookPublisherTextField;
     private JButton manageBooksAddBookButton;
     private JButton manageBooksDeleteBookButton;
     private JButton manageBooksEditBookButton;
     private JButton manageBooksClearFieldsButton;
     private JButton manageBooksMainMenuButton;
     private JButton manageBooksSearchBooksButton;
-    private JList<String> manageBooksListOfBooks;
+    private JList<String> manageBooksListOfBooksList;
     private JPanel manageAuthorsPanel;
     private JPanel managePublishersPanel;
     private JTextField manageAuthorsAuthorFirstNameTextField;
     private JTextField manageAuthorsAuthorSurnameTextField;
-    private DefaultListModel<Author> authorListModel;
-    private JList manageAuthorsListOfAuthorsList;
-    private DefaultListModel<Book> booksByAuthorListModel;
-    private JList manageAuthorsListOfBooksBySelectedAuthorList;
+    private JList<String> manageAuthorsListOfAuthorsList;
+    private JList<String> manageAuthorsListOfBooksBySelectedAuthorList;
     private JLabel manageBooksManageBooksLabel;
-    private JLabel manageBooksListOfBooksList;
+    private JLabel manageBooksListOfBooksLabel;
     private JLabel manageBooksBookTitleLabel;
     private JLabel manageBooksBookYearLabel;
     private JLabel manageBooksBookSubjectLabel;
@@ -59,9 +54,9 @@ public class MainGUI {
     private JLabel manageAuthorsAuthorSurnameLabel;
     private JLabel manageAuthorsListOfAuthorsLabel;
     private JLabel manageAuthorsListOfBooksBySelectedAuthorLabel;
-    private JList managePublishersListOfPublishersList;
+    private JList<String> managePublishersListOfPublishersList;
     private JTextField managePublishersPublisherNameTextField;
-    private JList managePublishersListOfBooksBySelectedPublisherList;
+    private JList<String> managePublishersListOfBooksBySelectedPublisherList;
     private JButton managePublishersSearchPublishersButton;
     private JButton managePublishersAddPublisherButton;
     private JButton managePublishersDeletePublisherButton;
@@ -72,12 +67,18 @@ public class MainGUI {
     private JLabel managePublishersListOfPublishersLabel;
     private JLabel managePublishersPublisherNameLabel;
     private JLabel managePublishersListOfBooksBySelectedPublisherLabel;
+    private JComboBox<String> manageBooksBooksPublisherComboBox;
+    private JComboBox<String> manageBooksBookAuthorComboBox;
 
     BookHandler bookHandler = new BookHandler();
     AuthorHandler authorHandler = new AuthorHandler();
     PublisherHandler publisherHandler = new PublisherHandler();
 
     List<Book> listOfBooks;
+    List<Author> listOfAuthors;
+    List<Book> listOfBooksByAuthor;
+    List<Publisher> listOfPublishers;
+    List<Book> listOfBooksByPublisher;
 
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -93,116 +94,114 @@ public class MainGUI {
     public MainGUI() {
 
         mainMenuLabel.setFont(titleFont);
-        mainMenuManageBooksButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(manageBooksPanel);
-                listOfBooks = bookHandler.getAllBooks();
-                refreshBookList();
-            }
-        });
-        mainMenuManageAuthorsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(manageAuthorsPanel);
-            }
-        });
-        mainMenuManagePublishersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(managePublishersPanel);
-            }
-        });
-        manageBooksMainMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(mainMenuPanel);
-            }
-        });
-        manageAuthorsMainMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(mainMenuPanel);
-            }
-        });
-        managePublishersMainMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changePanel(mainMenuPanel);
-            }
-        });
-        mainMenuQuitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        manageBooksSearchBooksButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        mainMenuManageBooksButton.addActionListener(e -> {
+            changePanel(manageBooksPanel);
+            listOfBooks = bookHandler.getAllBooks();
+            listOfAuthors = authorHandler.getAllAuthors();
+            listOfPublishers = publisherHandler.getAllPublishers();
+            refreshBookList();
 
-                //List<Book> searchedBookList = new ArrayList<>();
-                if (Objects.equals(manageBooksBookYearTextField.getText(), "")) {
-                    // year field empty (trying to parse an int when its an empty string throws an error so needs to be handled separately
-                    listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 1, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
-                }
-                else {
-                    // year field not empty
-                    listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
-                }
+            // update author combo box with all current authors
+            manageBooksBookAuthorComboBox.addItem("");
+            for (Author author : listOfAuthors) {
+                String authorString = author.getFirstName() + " " + author.getSurname();
+                manageBooksBookAuthorComboBox.addItem(authorString);
+            }
 
-                refreshBookList();
-                clearBookFields();
+            // update publisher combo box with all current publishers
+            manageBooksBooksPublisherComboBox.addItem("");
+            for (Publisher publisher : listOfPublishers) {
+                String publisherString = publisher.getName();
+                manageBooksBooksPublisherComboBox.addItem(publisherString);
             }
         });
-        manageBooksAddBookButton.addActionListener(new ActionListener() {
-            @Override
 
-            public void actionPerformed(ActionEvent e) {
-                if (!Objects.equals(manageBooksBookYearTextField.getText(), "")) {
-                    if (bookHandler.addBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText())) {
-                        popUpMessage("Book added successfully");
-                    }
-                    else {
-                        popUpMessage("Failed to add book, all fields must be populated");
-                    }
+        mainMenuManageAuthorsButton.addActionListener(e -> {
+
+            changePanel(manageAuthorsPanel);
+            listOfBooks = bookHandler.getAllBooks();
+            listOfAuthors = authorHandler.getAllAuthors();
+            listOfPublishers = publisherHandler.getAllPublishers();
+            refreshAuthorList();
+        });
+
+        mainMenuManagePublishersButton.addActionListener(e -> {
+
+            changePanel(managePublishersPanel);
+            listOfBooks = bookHandler.getAllBooks();
+            listOfAuthors = authorHandler.getAllAuthors();
+            listOfPublishers = publisherHandler.getAllPublishers();
+            refreshPublisherList();
+        });
+
+        manageBooksMainMenuButton.addActionListener(e -> changePanel(mainMenuPanel));
+
+        manageAuthorsMainMenuButton.addActionListener(e -> changePanel(mainMenuPanel));
+
+        managePublishersMainMenuButton.addActionListener(e -> changePanel(mainMenuPanel));
+
+        mainMenuQuitButton.addActionListener(e -> System.exit(0));
+
+        manageBooksSearchBooksButton.addActionListener(e -> {
+
+            try {
+                // will only not throw an exception if year field is filled with a valid integer
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+            }
+            catch (NumberFormatException ignored) {
+                // in any other case, will just pass in 1 as the year instead. could only return a false positive if a book year is 1 which is vanishingly unlikely in a real world scenario
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+            }
+            catch (NullPointerException ignored) {
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+            }
+            refreshBookList();
+            clearBookFields();
+        });
+
+        manageBooksAddBookButton.addActionListener(e -> {
+            try {
+                if (bookHandler.addBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText())) {
+                    listOfBooks = bookHandler.getAllBooks();
+                    refreshBookList();
+                    popUpMessage("Book added successfully");
                 }
                 else {
                     popUpMessage("Failed to add book");
                 }
             }
-        });
-        manageBooksDeleteBookButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // find index of currently selected book in the book jlist
-                int index = manageBooksListOfBooks.getSelectedIndex();
-
-                Book deletedBook = listOfBooks.get(index);
-
-                if (bookHandler.deleteBook(deletedBook)) {
-                    listOfBooks.remove(index);
-                    refreshBookList();
-                    popUpMessage("Book deleted successfully");
-                }
-                else {
-                    popUpMessage("Failed to delete book");
-                }
+            catch (NumberFormatException ignored) {
+                popUpMessage("Failed to add book - year must be a valid year after 0 AD");
+            }
+            catch (NullPointerException ignored) {
+                popUpMessage("Failed to add book");
             }
         });
-        manageBooksEditBookButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // find index of currently selected book in the book jlist
-                int index = manageBooksListOfBooks.getSelectedIndex();
-                Book editedBook;
 
-                if (!Objects.equals(manageBooksBookYearTextField.getText(), "")) {
-                    editedBook = new Book(listOfBooks.get(index).getBookID(), manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
-                }
-                else {
-                    editedBook = new Book(listOfBooks.get(index).getBookID(), manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 0, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
-                }
+        manageBooksDeleteBookButton.addActionListener(e -> {
+
+            // find index of currently selected book in the book jlist
+            int index = manageBooksListOfBooksList.getSelectedIndex();
+
+            Book deletedBook = listOfBooks.get(index);
+
+            if (bookHandler.deleteBook(deletedBook)) {
+                listOfBooks.remove(index);
+                refreshBookList();
+                popUpMessage("Book deleted successfully");
+            }
+            else {
+                popUpMessage("Failed to delete book");
+            }
+        });
+
+        manageBooksEditBookButton.addActionListener(e -> {
+
+            // find index of currently selected book in the book jlist
+            int index = manageBooksListOfBooksList.getSelectedIndex();
+
+            try {
+                Book editedBook = new Book(listOfBooks.get(index).getBookID(), manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
 
                 if (bookHandler.editBook(editedBook)) {
                     listOfBooks.remove(index);
@@ -214,83 +213,156 @@ public class MainGUI {
                     popUpMessage("Failed to edit book");
                 }
             }
-        });
-        manageAuthorsSearchAuthorsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                authorHandler.searchAuthor();
+            catch (NumberFormatException ignored) {
+                popUpMessage("Failed to add book - year must be a valid year after 0 AD");
+            }
+            catch (NullPointerException ignored) {
+                popUpMessage("Failed to edit book");
             }
         });
-        manageAuthorsAddAuthorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                authorHandler.addAuthor();
+
+        manageAuthorsSearchAuthorsButton.addActionListener(e -> {
+
+            listOfAuthors = authorHandler.searchForAuthor(manageAuthorsAuthorFirstNameTextField.getText(), manageAuthorsAuthorSurnameTextField.getText());
+
+            refreshAuthorList();
+            clearAuthorFields();
+        });
+
+        manageAuthorsAddAuthorButton.addActionListener(e -> {
+
+            if (authorHandler.addAuthor(manageAuthorsAuthorFirstNameTextField.getText(), manageAuthorsAuthorSurnameTextField.getText())) {
+                listOfAuthors = authorHandler.getAllAuthors();
+                refreshAuthorList();
+                popUpMessage("Author added successfully");
+            }
+            else {
+                popUpMessage("Failed to add author");
             }
         });
-        manageAuthorsDeleteAuthorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                authorHandler.deleteAuthor();
+
+        manageAuthorsDeleteAuthorButton.addActionListener(e -> {
+
+            // find index of currently selected author in the author jlist
+            int index = manageAuthorsListOfAuthorsList.getSelectedIndex();
+
+            Author deletedAuthor = listOfAuthors.get(index);
+
+            if (authorHandler.deleteAuthor(deletedAuthor)) {
+                listOfAuthors.remove(index);
+                refreshAuthorList();
+                popUpMessage("Author deleted successfully");
+            }
+            else {
+                popUpMessage("Failed to delete author");
             }
         });
-        manageAuthorsEditAuthorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                authorHandler.editAuthor();
+
+        manageAuthorsEditAuthorButton.addActionListener(e -> {
+
+            int index = manageAuthorsListOfAuthorsList.getSelectedIndex();
+
+            Author editedAuthor = new Author(listOfAuthors.get(index).getAuthorPK(), manageAuthorsAuthorFirstNameTextField.getText(), manageAuthorsAuthorSurnameTextField.getText());
+
+            if (authorHandler.editAuthor(editedAuthor)) {
+                listOfAuthors.remove(index);
+                listOfAuthors.add(index, editedAuthor);
+                refreshAuthorList();
+                popUpMessage("Author edited successfully");
+            }
+            else {
+                popUpMessage("Failed to edit author");
             }
         });
-        managePublishersSearchPublishersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                publisherHandler.searchPublisher();
+
+        managePublishersSearchPublishersButton.addActionListener(e -> {
+
+            listOfPublishers = publisherHandler.searchForPublisher(managePublishersPublisherNameTextField.getText());
+
+            refreshPublisherList();
+            clearPublisherFields();
+        });
+
+        managePublishersAddPublisherButton.addActionListener(e -> {
+
+            // add publisher
+            if (publisherHandler.addPublisher(managePublishersPublisherNameTextField.getText())) {
+                listOfPublishers = publisherHandler.getAllPublishers();
+                refreshPublisherList();
+                popUpMessage("Publisher added successfully");
+            }
+            // couldn't add publisher for whatever reason
+            else {
+                popUpMessage("Failed to add publisher");
             }
         });
-        managePublishersAddPublisherButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                publisherHandler.addPublisher();
+
+        managePublishersDeletePublisherButton.addActionListener(e -> {
+
+            // find index of currently selected book in the book jlist
+            int index = managePublishersListOfPublishersList.getSelectedIndex();
+
+            Publisher deletedPublisher = listOfPublishers.get(index);
+
+            if (publisherHandler.deletePublisher(deletedPublisher)) {
+                listOfPublishers.remove(index);
+                refreshPublisherList();
+                popUpMessage("Publisher deleted successfully");
+            }
+            else {
+                popUpMessage("Failed to delete publisher");
             }
         });
-        managePublishersDeletePublisherButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                publisherHandler.deletePublisher();
+
+        managePublishersEditPublisherButton.addActionListener(e -> {
+
+            int index = managePublishersListOfPublishersList.getSelectedIndex();
+
+            Publisher editedPublisher = new Publisher(listOfPublishers.get(index).getPublisherPK(), managePublishersPublisherNameTextField.getText());
+
+            if (publisherHandler.editPublisher(editedPublisher)) {
+                listOfPublishers.remove(index);
+                listOfPublishers.add(index, editedPublisher);
+                refreshPublisherList();
+                popUpMessage("Publisher edited successfully");
+            }
+            else {
+                popUpMessage("Failed to edit publisher");
             }
         });
-        managePublishersEditPublisherButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                publisherHandler.editPublisher();
-            }
-        });
-        manageBooksClearFieldsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearBookFields();
-            }
-        });
-        manageAuthorsClearFieldsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                manageAuthorsAuthorFirstNameTextField.setText("");
-                manageAuthorsAuthorSurnameTextField.setText("");
-            }
-        });
-        managePublishersClearFieldsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                managePublishersPublisherNameTextField.setText("");
-            }
-        });
-        manageBooksListOfBooks.addMouseListener(new MouseAdapter() {
+
+        manageBooksClearFieldsButton.addActionListener(e -> clearBookFields());
+
+        manageAuthorsClearFieldsButton.addActionListener(e -> clearAuthorFields());
+
+        managePublishersClearFieldsButton.addActionListener(e -> clearPublisherFields());
+
+        manageBooksListOfBooksList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                int index = manageBooksListOfBooksList.getSelectedIndex();
+                updateBookFields(listOfBooks.get(index).getTitle(), listOfBooks.get(index).getYearOfPublication(), listOfBooks.get(index).getSubject());
+            }
+        });
 
-                // find index of currently selected book in the book jlist
-                int index = manageBooksListOfBooks.getSelectedIndex();
+        manageAuthorsListOfAuthorsList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int index = manageAuthorsListOfAuthorsList.getSelectedIndex();
+                updateAuthorFields(listOfAuthors.get(index).getFirstName(), listOfAuthors.get(index).getSurname());
+                refreshBooksByAuthorList(index);
+            }
+        });
 
-                updateBookFields(listOfBooks.get(index).getTitle(), listOfBooks.get(index).getAuthor(), listOfBooks.get(index).getYearOfPublication(), listOfBooks.get(index).getPublisher(), listOfBooks.get(index).getSubject());
+        managePublishersListOfPublishersList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int index = managePublishersListOfPublishersList.getSelectedIndex();
+                updatePublisherFields(listOfPublishers.get(index).getName());
+                refreshBooksByPublisherList(listOfPublishers.get(index).getPublisherPK());
             }
         });
     }
@@ -309,12 +381,31 @@ public class MainGUI {
     }
 
     void refreshBookList() {
+
         List<String> editedBookList = new ArrayList<>();
         DefaultListModel<String> bookListModel = new DefaultListModel<>(); // initialise list model
 
         // iterating through the list of books
         for (Book book : listOfBooks) {
-            String editedBook = "Title: " + book.getTitle() + " | Author: " + book.getAuthor() + " | Year: " + book.getYearOfPublication() + " | Publisher: " + book.getPublisher() + " | Subject: " + book.getSubject();
+
+            String authorName = null;
+            String publisherName = null;
+
+            // find author name by stored author pk
+            for (Author author : listOfAuthors) {
+                if (author.getAuthorPK() == book.getAuthor()) {
+                    authorName = author.getFirstName() + " " + author.getSurname();
+                }
+            }
+
+            // find publisher name by stored publisher pk
+            for (Publisher publisher : listOfPublishers) {
+                if (publisher.getPublisherPK() == book.getPublisher()) {
+                    publisherName = publisher.getName();
+                }
+            }
+
+            String editedBook = "Title: " + book.getTitle() + " | Author: " + authorName + " | Year: " + book.getYearOfPublication() + " | Publisher: " + publisherName + " | Subject: " + book.getSubject();
             editedBookList.add(editedBook);
         }
 
@@ -324,22 +415,133 @@ public class MainGUI {
         }
 
         // add model to jlist
-        manageBooksListOfBooks.setModel(bookListModel);
+        manageBooksListOfBooksList.setModel(bookListModel);
+    }
+
+    void refreshAuthorList() {
+
+        List<String> editedAuthorList = new ArrayList<>();
+        DefaultListModel<String> authorListModel = new DefaultListModel<>();
+
+        for (Author author : listOfAuthors) {
+            String editedAuthor = author.getFirstName() + " " + author.getSurname();
+            editedAuthorList.add(editedAuthor);
+        }
+
+        for (String editedAuthor : editedAuthorList) {
+            authorListModel.addElement(editedAuthor);
+        }
+
+        manageAuthorsListOfAuthorsList.setModel(authorListModel);
+    }
+
+    void refreshPublisherList() {
+
+        List<String> editedPublisherList = new ArrayList<>();
+        DefaultListModel<String> publisherListModel = new DefaultListModel<>();
+
+        for (Publisher publisher : listOfPublishers) {
+            String editedPublisher = publisher.getName();
+            editedPublisherList.add(editedPublisher);
+        }
+
+        for (String editedPublisher : editedPublisherList) {
+            publisherListModel.addElement(editedPublisher);
+        }
+
+        managePublishersListOfPublishersList.setModel(publisherListModel);
+    }
+
+    void refreshBooksByAuthorList(int authorIndex) {
+
+        int authorPK = listOfAuthors.get(authorIndex).getAuthorPK();
+        List<String> booksByAuthorList = new ArrayList<>();
+        DefaultListModel<String> authorBooksListModel = new DefaultListModel<>();
+
+        for (Book book : listOfBooks) {
+            if (book.getAuthor() == authorPK) {
+                booksByAuthorList.add("Title: " + book.getTitle() + " | Author: " + listOfAuthors.get(authorIndex).getFirstName() + " " + listOfAuthors.get(authorIndex).getSurname() + " | Year: " + book.getYearOfPublication() + " | Subject: " + book.getSubject());
+            }
+        }
+
+        for (String editedBook : booksByAuthorList) {
+            authorBooksListModel.addElement(editedBook);
+        }
+
+        manageAuthorsListOfBooksBySelectedAuthorList.setModel(authorBooksListModel);
+    }
+
+    void refreshBooksByPublisherList(int publisherPK) {
+
+        List<String> booksByPublisherList = new ArrayList<>();
+        DefaultListModel<String> publisherBooksListModel = new DefaultListModel<>();
+
+        for (Book book : listOfBooks) {
+            if (book.getPublisher() == publisherPK) {
+                booksByPublisherList.add("Title: " + book.getTitle() + " | Year: " + book.getYearOfPublication() + " | Subject: " + book.getSubject());
+            }
+        }
+
+        for (String editedBook : booksByPublisherList) {
+            publisherBooksListModel.addElement(editedBook);
+        }
+
+        managePublishersListOfBooksBySelectedPublisherList.setModel(publisherBooksListModel);
     }
 
     void clearBookFields() {
         manageBooksBookTitleTextField.setText("");
-        manageBooksBookAuthorTextField.setText("");
+        manageBooksBookAuthorComboBox.setSelectedIndex(0);
         manageBooksBookYearTextField.setText("");
-        manageBooksBookPublisherTextField.setText("");
+        manageBooksBooksPublisherComboBox.setSelectedIndex(0);
         manageBooksBookSubjectTextField.setText("");
     }
 
-    void updateBookFields(String title, String author, int year, String publisher, String subject) {
+    void clearAuthorFields() {
+        manageAuthorsAuthorFirstNameTextField.setText("");
+        manageAuthorsAuthorSurnameTextField.setText("");
+    }
+
+    void clearPublisherFields() {
+        managePublishersPublisherNameTextField.setText("");
+    }
+
+    void updateBookFields(String title, int year, String subject) {
         manageBooksBookTitleTextField.setText(title);
-        manageBooksBookAuthorTextField.setText(author);
+        // TODO find correct index to select in combo box. Index number can be found by iterating through the list of books and comparing their authors against the selected book author
+        manageBooksBookAuthorComboBox.setSelectedIndex(0);
         manageBooksBookYearTextField.setText(Integer.toString(year));
-        manageBooksBookPublisherTextField.setText(publisher);
+        manageBooksBooksPublisherComboBox.setSelectedIndex(0);
+        // need correct index
         manageBooksBookSubjectTextField.setText(subject);
+    }
+
+    void updateAuthorFields(String firstName, String surname) {
+        manageAuthorsAuthorFirstNameTextField.setText(firstName);
+        manageAuthorsAuthorSurnameTextField.setText(surname);
+    }
+
+    void updatePublisherFields(String publisherName) {
+        managePublishersPublisherNameTextField.setText(publisherName);
+    }
+
+    int findAuthorPKFromComboBox() {
+        // find author pk by name in combo box
+        for (Author author : listOfAuthors) {
+            if ((author.getFirstName() + " " + author.getSurname()).equals(Objects.requireNonNull(manageBooksBookAuthorComboBox.getSelectedItem()).toString())) {
+                return author.getAuthorPK();
+            }
+        }
+        return 0;
+    }
+
+    int findPublisherPKFromComboBox() {
+        // find publisher pk by name in combo box
+        for (Publisher publisher : listOfPublishers) {
+            if (publisher.getName().equals(Objects.requireNonNull(manageBooksBooksPublisherComboBox.getSelectedItem()).toString())) {
+                return publisher.getPublisherPK();
+            }
+        }
+        return 0;
     }
 }

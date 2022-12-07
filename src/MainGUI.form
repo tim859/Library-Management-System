@@ -170,24 +170,6 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="566dd" class="javax.swing.JTextField" binding="manageBooksBookAuthorTextField">
-                <constraints>
-                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
-                  </grid>
-                  <gridbag top="0" left="15" bottom="0" right="15" weightx="1.0" weighty="1.0"/>
-                </constraints>
-                <properties/>
-              </component>
-              <component id="d43a9" class="javax.swing.JTextField" binding="manageBooksBookPublisherTextField">
-                <constraints>
-                  <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
-                  </grid>
-                  <gridbag top="0" left="15" bottom="0" right="15" weightx="1.0" weighty="1.0"/>
-                </constraints>
-                <properties/>
-              </component>
               <component id="71100" class="javax.swing.JButton" binding="manageBooksAddBookButton">
                 <constraints>
                   <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -232,7 +214,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="c48f0" class="javax.swing.JList" binding="manageBooksListOfBooks">
+                  <component id="c48f0" class="javax.swing.JList" binding="manageBooksListOfBooksList">
                     <constraints/>
                     <properties>
                       <model>
@@ -244,7 +226,7 @@
                   </component>
                 </children>
               </scrollpane>
-              <component id="66c46" class="javax.swing.JLabel" binding="manageBooksListOfBooksList">
+              <component id="66c46" class="javax.swing.JLabel" binding="manageBooksListOfBooksLabel">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="1.0" weighty="1.0"/>
@@ -270,6 +252,20 @@
                 <properties>
                   <text value="Edit Book"/>
                 </properties>
+              </component>
+              <component id="164df" class="javax.swing.JComboBox" binding="manageBooksBooksPublisherComboBox">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="15" bottom="0" right="15" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="7849a" class="javax.swing.JComboBox" binding="manageBooksBookAuthorComboBox">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="15" bottom="0" right="15" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties/>
               </component>
             </children>
           </grid>
@@ -318,8 +314,8 @@
               </component>
               <scrollpane id="2c89">
                 <constraints>
-                  <grid row="1" column="3" row-span="7" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="0" left="15" bottom="15" right="15" weightx="500.0" weighty="1.0"/>
+                  <grid row="1" column="3" row-span="5" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="0" left="15" bottom="15" right="15" weightx="10.0" weighty="1.0"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -350,8 +346,8 @@
               </component>
               <scrollpane id="9a67">
                 <constraints>
-                  <grid row="4" column="0" row-span="4" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="15" left="15" bottom="15" right="15" weightx="0.0" weighty="0.0"/>
+                  <grid row="4" column="0" row-span="2" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag top="15" left="15" bottom="15" right="15" weightx="100.0" weighty="0.0"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -364,7 +360,7 @@
               </scrollpane>
               <component id="83f0e" class="javax.swing.JButton" binding="manageAuthorsAddAuthorButton">
                 <constraints>
-                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="5" bottom="15" right="5" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -373,7 +369,7 @@
               </component>
               <component id="8f6dc" class="javax.swing.JButton" binding="manageAuthorsDeleteAuthorButton">
                 <constraints>
-                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="5" bottom="15" right="15" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -382,7 +378,7 @@
               </component>
               <component id="e24b0" class="javax.swing.JButton" binding="manageAuthorsClearFieldsButton">
                 <constraints>
-                  <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="0" bottom="15" right="0" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -391,7 +387,7 @@
               </component>
               <component id="ad9c" class="javax.swing.JButton" binding="manageAuthorsMainMenuButton">
                 <constraints>
-                  <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="0" bottom="15" right="0" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -400,7 +396,7 @@
               </component>
               <component id="e18cb" class="javax.swing.JButton" binding="manageAuthorsSearchAuthorsButton">
                 <constraints>
-                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="15" bottom="15" right="5" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -418,7 +414,7 @@
               </component>
               <component id="a51d7" class="javax.swing.JButton" binding="manageAuthorsEditAuthorButton">
                 <constraints>
-                  <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag top="0" left="5" bottom="15" right="15" weightx="1.0" weighty="0.0"/>
                 </constraints>
                 <properties>

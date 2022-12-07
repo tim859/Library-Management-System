@@ -1,2 +1,2 @@
-data class Publisher(var name: String = "") {
+data class Publisher(val publisherPK: Int, var name: String = "") {
 }

@@ -1,2 +1,2 @@
-data class Author(val authorID: Int, var firstName: String = "", var surname: String = "") {
+data class Author(val authorPK: Int, var firstName: String = "", var surname: String = "") {
 }
