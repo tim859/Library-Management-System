@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="added functionality to add a book as well as search for a book">
+    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="Added sqlite tools">
+      <change afterPath="$PROJECT_DIR$/src/AuthorDBHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PublisherDBHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Databases/libraryDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/libraryDB.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Author.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Author.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BookDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookDBHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BookHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookListHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +53,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE&quot;: &quot;right&quot;,
     &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE&quot;: &quot;left&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;440&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;336&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/University of Greenwich/Year 3/JVM/Week 8/week-08-gradle&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
@@ -92,9 +96,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestKt" />
+      <module name="Library Management System" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainGUI" />
+        <item itemvalue="Kotlin.TestKt" />
         <item itemvalue="Application.SQLiteJDBC" />
         <item itemvalue="Kotlin.BookKt" />
         <item itemvalue="Application.Main" />
@@ -126,6 +138,9 @@
       <workItem from="1669399263412" duration="11138000" />
       <workItem from="1669415353840" duration="907000" />
       <workItem from="1669419834687" duration="2427000" />
+      <workItem from="1669910622169" duration="573000" />
+      <workItem from="1670339519737" duration="6687000" />
+      <workItem from="1670366289845" duration="3779000" />
     </task>
     <task id="LOCAL-00001" summary="Remade GUI form with updated design">
       <created>1667483447529</created>

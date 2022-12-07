@@ -2,10 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Vector;
+import javax.swing.DefaultListModel;
 
 
 public class MainGUI {
@@ -29,14 +32,14 @@ public class MainGUI {
     private JButton manageBooksClearFieldsButton;
     private JButton manageBooksMainMenuButton;
     private JButton manageBooksSearchBooksButton;
-
-    private DefaultListModel<Book> bookListModel;
-    private JList<Book> manageBooksListOfBooks;
+    private JList<String> manageBooksListOfBooks;
     private JPanel manageAuthorsPanel;
     private JPanel managePublishersPanel;
     private JTextField manageAuthorsAuthorFirstNameTextField;
     private JTextField manageAuthorsAuthorSurnameTextField;
+    private DefaultListModel<Author> authorListModel;
     private JList manageAuthorsListOfAuthorsList;
+    private DefaultListModel<Book> booksByAuthorListModel;
     private JList manageAuthorsListOfBooksBySelectedAuthorList;
     private JLabel manageBooksManageBooksLabel;
     private JLabel manageBooksListOfBooksList;
@@ -74,6 +77,8 @@ public class MainGUI {
     AuthorHandler authorHandler = new AuthorHandler();
     PublisherHandler publisherHandler = new PublisherHandler();
 
+    List<Book> listOfBooks;
+
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
 
@@ -86,15 +91,14 @@ public class MainGUI {
     }
 
     public MainGUI() {
-        bookListModel = new DefaultListModel<>();
-
-        manageBooksListOfBooks = new JList<>(bookListModel);
 
         mainMenuLabel.setFont(titleFont);
         mainMenuManageBooksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changePanel(manageBooksPanel);
+                listOfBooks = bookHandler.getAllBooks();
+                refreshBookList();
             }
         });
         mainMenuManageAuthorsButton.addActionListener(new ActionListener() {
@@ -137,18 +141,18 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                List<Book> searchedBookList = new ArrayList<>();
+                //List<Book> searchedBookList = new ArrayList<>();
                 if (Objects.equals(manageBooksBookYearTextField.getText(), "")) {
                     // year field empty (trying to parse an int when its an empty string throws an error so needs to be handled separately
-                    searchedBookList = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 1, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                    listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 1, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
                 }
                 else {
                     // year field not empty
-                    searchedBookList = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                    listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
                 }
-                System.out.println(searchedBookList);
 
-                // manageBooksListOfBooks = new JList<>(bookListModel);
+                refreshBookList();
+                clearBookFields();
             }
         });
         manageBooksAddBookButton.addActionListener(new ActionListener() {
@@ -160,7 +164,7 @@ public class MainGUI {
                         popUpMessage("Book added successfully");
                     }
                     else {
-                        popUpMessage("Failed to add book");
+                        popUpMessage("Failed to add book, all fields must be populated");
                     }
                 }
                 else {
@@ -171,13 +175,44 @@ public class MainGUI {
         manageBooksDeleteBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //bookHandler.deleteBook();
+                // find index of currently selected book in the book jlist
+                int index = manageBooksListOfBooks.getSelectedIndex();
+
+                Book deletedBook = listOfBooks.get(index);
+
+                if (bookHandler.deleteBook(deletedBook)) {
+                    listOfBooks.remove(index);
+                    refreshBookList();
+                    popUpMessage("Book deleted successfully");
+                }
+                else {
+                    popUpMessage("Failed to delete book");
+                }
             }
         });
         manageBooksEditBookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                bookHandler.editBook();
+                // find index of currently selected book in the book jlist
+                int index = manageBooksListOfBooks.getSelectedIndex();
+                Book editedBook;
+
+                if (!Objects.equals(manageBooksBookYearTextField.getText(), "")) {
+                    editedBook = new Book(listOfBooks.get(index).getBookID(), manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), Integer.parseInt(manageBooksBookYearTextField.getText()), manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                }
+                else {
+                    editedBook = new Book(listOfBooks.get(index).getBookID(), manageBooksBookTitleTextField.getText(), manageBooksBookAuthorTextField.getText(), 0, manageBooksBookPublisherTextField.getText(), manageBooksBookSubjectTextField.getText());
+                }
+
+                if (bookHandler.editBook(editedBook)) {
+                    listOfBooks.remove(index);
+                    listOfBooks.add(index, editedBook);
+                    refreshBookList();
+                    popUpMessage("Book edited successfully");
+                }
+                else {
+                    popUpMessage("Failed to edit book");
+                }
             }
         });
         manageAuthorsSearchAuthorsButton.addActionListener(new ActionListener() {
@@ -231,11 +266,7 @@ public class MainGUI {
         manageBooksClearFieldsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                manageBooksBookTitleTextField.setText("");
-                manageBooksBookAuthorTextField.setText("");
-                manageBooksBookYearTextField.setText("");
-                manageBooksBookPublisherTextField.setText("");
-                manageBooksBookSubjectTextField.setText("");
+                clearBookFields();
             }
         });
         manageAuthorsClearFieldsButton.addActionListener(new ActionListener() {
@@ -251,6 +282,17 @@ public class MainGUI {
                 managePublishersPublisherNameTextField.setText("");
             }
         });
+        manageBooksListOfBooks.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                // find index of currently selected book in the book jlist
+                int index = manageBooksListOfBooks.getSelectedIndex();
+
+                updateBookFields(listOfBooks.get(index).getTitle(), listOfBooks.get(index).getAuthor(), listOfBooks.get(index).getYearOfPublication(), listOfBooks.get(index).getPublisher(), listOfBooks.get(index).getSubject());
+            }
+        });
     }
 
     private void changePanel(JPanel newPanel) {
@@ -264,5 +306,40 @@ public class MainGUI {
         JFrame parent = new JFrame();
 
         JOptionPane.showMessageDialog(parent, message);
+    }
+
+    void refreshBookList() {
+        List<String> editedBookList = new ArrayList<>();
+        DefaultListModel<String> bookListModel = new DefaultListModel<>(); // initialise list model
+
+        // iterating through the list of books
+        for (Book book : listOfBooks) {
+            String editedBook = "Title: " + book.getTitle() + " | Author: " + book.getAuthor() + " | Year: " + book.getYearOfPublication() + " | Publisher: " + book.getPublisher() + " | Subject: " + book.getSubject();
+            editedBookList.add(editedBook);
+        }
+
+        for (String editedBook : editedBookList) {
+            // adding each book to the list model
+            bookListModel.addElement(editedBook);
+        }
+
+        // add model to jlist
+        manageBooksListOfBooks.setModel(bookListModel);
+    }
+
+    void clearBookFields() {
+        manageBooksBookTitleTextField.setText("");
+        manageBooksBookAuthorTextField.setText("");
+        manageBooksBookYearTextField.setText("");
+        manageBooksBookPublisherTextField.setText("");
+        manageBooksBookSubjectTextField.setText("");
+    }
+
+    void updateBookFields(String title, String author, int year, String publisher, String subject) {
+        manageBooksBookTitleTextField.setText(title);
+        manageBooksBookAuthorTextField.setText(author);
+        manageBooksBookYearTextField.setText(Integer.toString(year));
+        manageBooksBookPublisherTextField.setText(publisher);
+        manageBooksBookSubjectTextField.setText(subject);
     }
 }

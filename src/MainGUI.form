@@ -234,7 +234,13 @@
                 <children>
                   <component id="c48f0" class="javax.swing.JList" binding="manageBooksListOfBooks">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <model>
+                        <item value="Item 1"/>
+                        <item value="Item 2"/>
+                        <item value="Item 3"/>
+                      </model>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

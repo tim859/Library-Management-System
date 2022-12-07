@@ -22,13 +22,20 @@ class BookHandler {
         return bookDBHandler.addBookToDB(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
     }
 
-    fun deleteBook(book: Book) {
-
-
-        bookDBHandler.deleteBookFromDB(book)
+    fun deleteBook(deletedBook: Book): Boolean {
+        return bookDBHandler.deleteBookFromDB(deletedBook)
     }
 
-    fun editBook() {
+    fun editBook(editedBook: Book): Boolean {
+        // basic validation that just makes sure none of the fields are empty, can be greatly enhanced
+        if (editedBook.title.isEmpty() or editedBook.author.isEmpty() or (editedBook.yearOfPublication <= 0) or editedBook.publisher.isEmpty() or editedBook.subject.isEmpty()) {
+            return false
+        }
 
+        return bookDBHandler.editBookInDB(editedBook)
+    }
+
+    fun getAllBooks(): List<Book> {
+        return bookDBHandler.allBooksInDB
     }
 }
