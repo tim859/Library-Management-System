@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="changed searching functionality to be on database and not on list as well as implementing untested deletion and edit db code">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good.">
+      <change afterPath="$PROJECT_DIR$/src/SortAlgo.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Databases/libraryDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/libraryDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Author.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Author.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthorDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthorDBHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthorHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthorHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Book.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Book.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookDBHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookHandler.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Publisher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PublisherDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PublisherDBHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PublisherHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/PublisherHandler.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -51,27 +42,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE": "right",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE": "left",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "497",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/University of Greenwich/Year 3/JVM/Week 8/week-08-gradle",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.STATE&quot;: &quot;right&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.STATE&quot;: &quot;left&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;497&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/University of Greenwich/Year 3/JVM/Week 8/week-08-gradle&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.MainGUI">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -146,7 +137,8 @@
       <workItem from="1669910622169" duration="573000" />
       <workItem from="1670339519737" duration="6687000" />
       <workItem from="1670366289845" duration="3779000" />
-      <workItem from="1670437470059" duration="12283000" />
+      <workItem from="1670437470059" duration="12688000" />
+      <workItem from="1670519522920" duration="2609000" />
     </task>
     <task id="LOCAL-00001" summary="Remade GUI form with updated design">
       <created>1667483447529</created>
@@ -169,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669415437839</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good.">
+      <created>1670450910004</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1670450910004</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +189,8 @@
     <MESSAGE value="Remade GUI form with updated design" />
     <MESSAGE value="Added sqlite tools, sqlite jdbc, and bookDBHandler" />
     <MESSAGE value="added functionality to add a book as well as search for a book" />
-    <option name="LAST_COMMIT_MESSAGE" value="added functionality to add a book as well as search for a book" />
+    <MESSAGE value="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good." />
+    <option name="LAST_COMMIT_MESSAGE" value="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -69,6 +67,10 @@ public class MainGUI {
     private JLabel managePublishersListOfBooksBySelectedPublisherLabel;
     private JComboBox<String> manageBooksBooksPublisherComboBox;
     private JComboBox<String> manageBooksBookAuthorComboBox;
+    private JRadioButton mainMenuBubbleSortRadioButton;
+    private JRadioButton mainMenuMergeSortRadioButton;
+    private JRadioButton mainMenuRadixSortRadioButton;
+    private JLabel mainMenuChooseSortAlgoLabel;
 
     BookHandler bookHandler = new BookHandler();
     AuthorHandler authorHandler = new AuthorHandler();
@@ -81,6 +83,7 @@ public class MainGUI {
     List<Book> listOfBooksByPublisher;
 
     Font titleFont = new Font(Font.SERIF, Font.BOLD, 50);
+    Font mediumTitleFont = new Font(Font.SERIF, Font.PLAIN, 40);
     Font subtitleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
 
     public static void main(String[] args) {
@@ -94,6 +97,12 @@ public class MainGUI {
     public MainGUI() {
 
         mainMenuLabel.setFont(titleFont);
+        manageBooksManageBooksLabel.setFont(subtitleFont);
+        manageBooksListOfBooksLabel.setFont(subtitleFont);
+        manageAuthorsManageAuthorsLabel.setFont(subtitleFont);
+        manageAuthorsListOfAuthorsLabel.setFont(subtitleFont);
+        managePublishersManagePublishersLabel.setFont(subtitleFont);
+        managePublishersListOfPublishersLabel.setFont(subtitleFont);
         mainMenuManageBooksButton.addActionListener(e -> {
             changePanel(manageBooksPanel);
             listOfBooks = bookHandler.getAllBooks();
@@ -102,14 +111,14 @@ public class MainGUI {
             refreshBookList();
 
             // update author combo box with all current authors
-            manageBooksBookAuthorComboBox.addItem("");
+            manageBooksBookAuthorComboBox.addItem("N/A");
             for (Author author : listOfAuthors) {
                 String authorString = author.getFirstName() + " " + author.getSurname();
                 manageBooksBookAuthorComboBox.addItem(authorString);
             }
 
             // update publisher combo box with all current publishers
-            manageBooksBooksPublisherComboBox.addItem("");
+            manageBooksBooksPublisherComboBox.addItem("N/A");
             for (Publisher publisher : listOfPublishers) {
                 String publisherString = publisher.getName();
                 manageBooksBooksPublisherComboBox.addItem(publisherString);
@@ -342,7 +351,7 @@ public class MainGUI {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 int index = manageBooksListOfBooksList.getSelectedIndex();
-                updateBookFields(listOfBooks.get(index).getTitle(), listOfBooks.get(index).getYearOfPublication(), listOfBooks.get(index).getSubject());
+                updateBookFields(listOfBooks.get(index).getTitle(), listOfBooks.get(index).getAuthor(), listOfBooks.get(index).getYearOfPublication(), listOfBooks.get(index).getPublisher(), listOfBooks.get(index).getSubject());
             }
         });
 
@@ -361,8 +370,8 @@ public class MainGUI {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 int index = managePublishersListOfPublishersList.getSelectedIndex();
-                updatePublisherFields(listOfPublishers.get(index).getName());
-                refreshBooksByPublisherList(listOfPublishers.get(index).getPublisherPK());
+                updatePublisherField(listOfPublishers.get(index).getName());
+                refreshBooksByPublisherList(index);
             }
         });
     }
@@ -452,15 +461,23 @@ public class MainGUI {
         managePublishersListOfPublishersList.setModel(publisherListModel);
     }
 
-    void refreshBooksByAuthorList(int authorIndex) {
+    void refreshBooksByAuthorList(int authorIndex) { // the authorIndex is the index of the selected item in the booksByAuthor jList
 
         int authorPK = listOfAuthors.get(authorIndex).getAuthorPK();
         List<String> booksByAuthorList = new ArrayList<>();
         DefaultListModel<String> authorBooksListModel = new DefaultListModel<>();
 
         for (Book book : listOfBooks) {
+            
+            String publisherName = "N/A";
+            for (Publisher publisher : listOfPublishers) {
+                if (publisher.getPublisherPK() == book.getPublisher()) {
+                    publisherName = publisher.getName();
+                }
+            }
+            
             if (book.getAuthor() == authorPK) {
-                booksByAuthorList.add("Title: " + book.getTitle() + " | Author: " + listOfAuthors.get(authorIndex).getFirstName() + " " + listOfAuthors.get(authorIndex).getSurname() + " | Year: " + book.getYearOfPublication() + " | Subject: " + book.getSubject());
+                booksByAuthorList.add("Title: " + book.getTitle() + " | Author: " + listOfAuthors.get(authorIndex).getFirstName() + " " + listOfAuthors.get(authorIndex).getSurname() + " | Year: " + book.getYearOfPublication() + " | Publisher: " + publisherName + " | Subject: " + book.getSubject());
             }
         }
 
@@ -471,14 +488,23 @@ public class MainGUI {
         manageAuthorsListOfBooksBySelectedAuthorList.setModel(authorBooksListModel);
     }
 
-    void refreshBooksByPublisherList(int publisherPK) {
+    void refreshBooksByPublisherList(int publisherIndex) {
 
+        int publisherPK = listOfPublishers.get(publisherIndex).getPublisherPK();
         List<String> booksByPublisherList = new ArrayList<>();
         DefaultListModel<String> publisherBooksListModel = new DefaultListModel<>();
 
         for (Book book : listOfBooks) {
+
+            String authorName = "N/A";
+            for (Author author : listOfAuthors) {
+                if (author.getAuthorPK() == book.getAuthor()) {
+                    authorName = author.getFirstName() + " " + author.getSurname();
+                }
+            }
+
             if (book.getPublisher() == publisherPK) {
-                booksByPublisherList.add("Title: " + book.getTitle() + " | Year: " + book.getYearOfPublication() + " | Subject: " + book.getSubject());
+                booksByPublisherList.add("Title: " + book.getTitle() + " | Author: " + authorName + " | Year: " + book.getYearOfPublication() + " | Publisher: " + listOfPublishers.get(publisherIndex).getName() + " | Subject: " + book.getSubject());
             }
         }
 
@@ -506,14 +532,22 @@ public class MainGUI {
         managePublishersPublisherNameTextField.setText("");
     }
 
-    void updateBookFields(String title, int year, String subject) {
+    void updateBookFields(String title, int author, int year, int publisher, String subject) {
         manageBooksBookTitleTextField.setText(title);
-        // TODO find correct index to select in combo box. Index number can be found by iterating through the list of books and comparing their authors against the selected book author
-        manageBooksBookAuthorComboBox.setSelectedIndex(0);
         manageBooksBookYearTextField.setText(Integer.toString(year));
-        manageBooksBooksPublisherComboBox.setSelectedIndex(0);
-        // need correct index
         manageBooksBookSubjectTextField.setText(subject);
+
+        for (int i = 0; i < listOfAuthors.size(); i++) {
+            if (author == listOfAuthors.get(i).getAuthorPK()) {
+                manageBooksBookAuthorComboBox.setSelectedIndex(i + 1); // i + 1 to account for the black space at the beginning
+            }
+        }
+
+        for (int i = 0; i < listOfPublishers.size(); i++) {
+            if (publisher == listOfPublishers.get(i).getPublisherPK()) {
+                manageBooksBooksPublisherComboBox.setSelectedIndex(i + 1);
+            }
+        }
     }
 
     void updateAuthorFields(String firstName, String surname) {
@@ -521,7 +555,7 @@ public class MainGUI {
         manageAuthorsAuthorSurnameTextField.setText(surname);
     }
 
-    void updatePublisherFields(String publisherName) {
+    void updatePublisherField(String publisherName) {
         managePublishersPublisherNameTextField.setText(publisherName);
     }
 

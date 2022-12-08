@@ -26,7 +26,7 @@
             <children>
               <component id="38a04" class="javax.swing.JLabel" binding="mainMenuLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="1.0" weighty="1.0"/>
                 </constraints>
                 <properties>
@@ -35,7 +35,7 @@
               </component>
               <component id="e4310" class="javax.swing.JButton" binding="mainMenuManageBooksButton">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="1"/>
                   </grid>
                   <gridbag weightx="1.0" weighty="0.2"/>
@@ -46,7 +46,7 @@
               </component>
               <component id="f1df4" class="javax.swing.JButton" binding="mainMenuManageAuthorsButton">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="2" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="1"/>
                   </grid>
                   <gridbag weightx="1.0" weighty="0.2"/>
@@ -57,7 +57,7 @@
               </component>
               <component id="495a0" class="javax.swing.JButton" binding="mainMenuManagePublishersButton">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="3" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="1"/>
                   </grid>
                   <gridbag weightx="1.0" weighty="0.2"/>
@@ -68,11 +68,47 @@
               </component>
               <component id="76220" class="javax.swing.JButton" binding="mainMenuQuitButton">
                 <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="1.0" weighty="1.0"/>
                 </constraints>
                 <properties>
                   <text value="Quit"/>
+                </properties>
+              </component>
+              <component id="aa824" class="javax.swing.JRadioButton" binding="mainMenuBubbleSortRadioButton">
+                <constraints>
+                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.2"/>
+                </constraints>
+                <properties>
+                  <text value="Bubble Sort"/>
+                </properties>
+              </component>
+              <component id="d57ce" class="javax.swing.JRadioButton" binding="mainMenuMergeSortRadioButton">
+                <constraints>
+                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.2"/>
+                </constraints>
+                <properties>
+                  <text value="Merge Sort"/>
+                </properties>
+              </component>
+              <component id="ccd2f" class="javax.swing.JLabel" binding="mainMenuChooseSortAlgoLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.2"/>
+                </constraints>
+                <properties>
+                  <text value="Sorting Algorithm Choice:"/>
+                </properties>
+              </component>
+              <component id="afe1e" class="javax.swing.JRadioButton" binding="mainMenuRadixSortRadioButton">
+                <constraints>
+                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.2"/>
+                </constraints>
+                <properties>
+                  <text value="Radix Sort"/>
                 </properties>
               </component>
             </children>
@@ -469,7 +505,7 @@
               <scrollpane id="922ac">
                 <constraints>
                   <grid row="1" column="3" row-span="3" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="0" left="15" bottom="15" right="15" weightx="20.0" weighty="1.0"/>
+                  <gridbag top="0" left="15" bottom="15" right="15" weightx="1.0" weighty="1.0"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -492,7 +528,7 @@
               <scrollpane id="1e03e">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag top="15" left="15" bottom="15" right="15" weightx="0.0" weighty="1.0"/>
+                  <gridbag top="15" left="15" bottom="15" right="15" weightx="10.0" weighty="1.0"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -563,4 +599,11 @@
       </grid>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="sortingAlgos">
+      <member id="afe1e"/>
+      <member id="d57ce"/>
+      <member id="aa824"/>
+    </group>
+  </buttonGroups>
 </form>
