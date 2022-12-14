@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good.">
-      <change afterPath="$PROJECT_DIR$/src/SortAlgo.kt" afterDir="false" />
+    <list default="true" id="76e83ef4-ae13-4eac-ac19-4dc5f4f3c5a0" name="Changes" comment="some final gui fixes, added the sorts and the radio buttons to choose the sorts">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/scala_sdk_2_13_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RadixSort.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_12_2022_15_24_[Changes]/libraryDB.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Databases/libraryDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/Databases/libraryDB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library Management System.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Library Management System.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthorDBHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthorDBHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookHandler.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SortAlgo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/SortAlgo.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +36,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/MainGUI.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -55,7 +65,8 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;scala_project_settings_configurable.last_selected_tab_index&quot;: &quot;6&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.scala.settings.ScalaProjectSettingsConfigurable&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -109,6 +120,29 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ScalaProjectSettings">
+    <option name="intInjectionMapping">
+      <map>
+        <entry key="css" value="CSS" />
+        <entry key="html" value="HTML" />
+        <entry key="java" value="JAVA" />
+        <entry key="js" value="JavaScript" />
+        <entry key="json" value="JSON" />
+        <entry key="json5" value="JSON5" />
+        <entry key="less" value="LESS" />
+        <entry key="protobuf" value="protobuf" />
+        <entry key="scala" value="Scala" />
+        <entry key="sql" value="SQL" />
+        <entry key="sqlu" value="SQL" />
+        <entry key="svg" value="SVG" />
+        <entry key="xhtml" value="XHTML" />
+        <entry key="xml" value="XML" />
+        <entry key="xpath" value="XPath" />
+        <entry key="yaml" value="yaml" />
+      </map>
+    </option>
+    <option name="scala3DisclaimerShown" value="true" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -138,7 +172,12 @@
       <workItem from="1670339519737" duration="6687000" />
       <workItem from="1670366289845" duration="3779000" />
       <workItem from="1670437470059" duration="12688000" />
-      <workItem from="1670519522920" duration="2609000" />
+      <workItem from="1670519522920" duration="3395000" />
+      <workItem from="1670623222552" duration="131000" />
+      <workItem from="1670623364391" duration="1279000" />
+      <workItem from="1670624692349" duration="17000" />
+      <workItem from="1671040450917" duration="6230000" />
+      <workItem from="1671046725539" duration="7034000" />
     </task>
     <task id="LOCAL-00001" summary="Remade GUI form with updated design">
       <created>1667483447529</created>
@@ -168,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670450910004</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="some final gui fixes, added the sorts and the radio buttons to choose the sorts">
+      <created>1670522324799</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670522324799</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +236,8 @@
     <MESSAGE value="Added sqlite tools, sqlite jdbc, and bookDBHandler" />
     <MESSAGE value="added functionality to add a book as well as search for a book" />
     <MESSAGE value="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good." />
-    <option name="LAST_COMMIT_MESSAGE" value="Basically fully finished gui and backend functionality. some minor bugs and tweaks still need fixing but otherwise everything is pretty much good." />
+    <MESSAGE value="some final gui fixes, added the sorts and the radio buttons to choose the sorts" />
+    <option name="LAST_COMMIT_MESSAGE" value="some final gui fixes, added the sorts and the radio buttons to choose the sorts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

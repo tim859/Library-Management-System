@@ -1,47 +1,103 @@
+import kotlin.system.measureTimeMillis
+
 class SortAlgo {
 
-    public fun bubbleSort(array: Array<String>) {
-        for (i in 0 until array.size - 1) {
-            for (j in 0 until array.size - i - 1) {
-                if (array[j] > array[j + 1]) {
-                    // Swap the elements
-                    val temp = array[j]
-                    array[j] = array[j + 1]
-                    array[j + 1] = temp
+    private val authorDBHandler = AuthorDBHandler()
+
+    private var mergeSortTime = 0.0f
+
+    fun nestedBubbleSort(books: MutableList<Book>): List<Book> {
+
+        val startTime = System.currentTimeMillis()
+
+        val authorSurnameList = authorDBHandler.getAuthorsFromPK(books)
+
+        for (i in 0 until books.size - 1) {
+            for (j in 0 until books.size - i - 1) {
+                if (authorSurnameList[j] > authorSurnameList[j + 1]) {
+                    // Swap books if authors are out of order
+                    val tmp = books[j]
+                    books[j] = books[j + 1]
+                    books[j + 1] = tmp
+
+                    val tmp2 = authorSurnameList[j]
+                    authorSurnameList[j] = authorSurnameList[j + 1]
+                    authorSurnameList[j + 1] = tmp2
+
+                } else if (authorSurnameList[j] == authorSurnameList[j + 1]) {
+                    // If authors are the same, compare titles
+                    if (books[j].title > books[j + 1].title) {
+                        val tmp = books[j]
+                        books[j] = books[j + 1]
+                        books[j + 1] = tmp
+
+                        val tmp2 = authorSurnameList[j]
+                        authorSurnameList[j] = authorSurnameList[j + 1]
+                        authorSurnameList[j + 1] = tmp2
+                    }
                 }
             }
         }
+        val endTime = System.currentTimeMillis()
+        val elapsedTime = endTime - startTime
+        println("Elapsed time: $elapsedTime ms")
+        return books
     }
 
-    public fun mergeSort(array: Array<String>): Array<String> {
+//    fun mergeSort(books: List<Book>): List<Book> {
+//
+//        val startTime = System.currentTimeMillis()
+//
+//        val sortedBookList = mergeSorting(books)
+//
+//        val endTime = System.currentTimeMillis()
+//        val elapsedTime = endTime - startTime
+//        println("Elapsed time: $elapsedTime ms")
+//
+//        return sortedBookList
+//    }
 
-        if (array.size <= 1) return array
+    fun mergeSort(books: List<Book>): List<Book> {
 
-        val middle = array.size / 2
-        val left = array.copyOfRange(0, middle)
-        val right = array.copyOfRange(middle, array.size)
+        if (books.size <= 1) return books
+
+        val middle = books.size / 2
+        val left = books.subList(0, middle)
+        val right = books.subList(middle, books.size)
 
         return merge(mergeSort(left), mergeSort(right))
     }
 
-    private fun merge(left: Array<String>, right: Array<String>): Array<String> {
-        val result = mutableListOf<String>()
+    private fun merge(left: List<Book>, right: List<Book>): List<Book> {
+        val result = mutableListOf<Book>()
+
         var leftIndex = 0
         var rightIndex = 0
 
         while (leftIndex < left.size && rightIndex < right.size) {
-            if (left[leftIndex] < right[rightIndex]) {
-                result.add(left[leftIndex])
+            val leftBook = left[leftIndex]
+            val rightBook = right[rightIndex]
+
+            // first sort by author, then by title
+            if (leftBook.author < rightBook.author ||
+                (leftBook.author == rightBook.author && leftBook.title < rightBook.title)) {
+                result.add(leftBook)
                 leftIndex++
             } else {
-                result.add(right[rightIndex])
+                result.add(rightBook)
                 rightIndex++
             }
         }
 
-        result.addAll(left.toList().subList(leftIndex, left.size))
-        result.addAll(right.toList().subList(rightIndex, right.size))
+        while (leftIndex < left.size) {
+            result.add(left[leftIndex])
+            leftIndex++
+        }
 
-        return result.toTypedArray()
+        while (rightIndex < right.size) {
+            result.add(right[rightIndex])
+            rightIndex++
+        }
+        return result
     }
 }

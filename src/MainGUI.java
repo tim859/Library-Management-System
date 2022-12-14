@@ -70,7 +70,9 @@ public class MainGUI {
     private JRadioButton mainMenuBubbleSortRadioButton;
     private JRadioButton mainMenuMergeSortRadioButton;
     private JRadioButton mainMenuRadixSortRadioButton;
+    private ButtonGroup sortAlgosButtonGroup = new ButtonGroup();
     private JLabel mainMenuChooseSortAlgoLabel;
+    private String sortAlgoChoice;
 
     BookHandler bookHandler = new BookHandler();
     AuthorHandler authorHandler = new AuthorHandler();
@@ -96,6 +98,10 @@ public class MainGUI {
 
     public MainGUI() {
 
+        sortAlgosButtonGroup.add(mainMenuBubbleSortRadioButton);
+        sortAlgosButtonGroup.add(mainMenuMergeSortRadioButton);
+        sortAlgosButtonGroup.add(mainMenuRadixSortRadioButton);
+
         mainMenuLabel.setFont(titleFont);
         manageBooksManageBooksLabel.setFont(subtitleFont);
         manageBooksListOfBooksLabel.setFont(subtitleFont);
@@ -103,12 +109,27 @@ public class MainGUI {
         manageAuthorsListOfAuthorsLabel.setFont(subtitleFont);
         managePublishersManagePublishersLabel.setFont(subtitleFont);
         managePublishersListOfPublishersLabel.setFont(subtitleFont);
+
         mainMenuManageBooksButton.addActionListener(e -> {
+
+            if (mainMenuBubbleSortRadioButton.isSelected()) {
+                sortAlgoChoice = "bubble sort";
+            }
+            else if (mainMenuMergeSortRadioButton.isSelected()) {
+                sortAlgoChoice = "merge sort";
+            }
+            else if (mainMenuRadixSortRadioButton.isSelected()) {
+                sortAlgoChoice = "radix sort";
+            }
+
             changePanel(manageBooksPanel);
-            listOfBooks = bookHandler.getAllBooks();
+            listOfBooks = bookHandler.getAllBooks(sortAlgoChoice);
             listOfAuthors = authorHandler.getAllAuthors();
             listOfPublishers = publisherHandler.getAllPublishers();
             refreshBookList();
+
+            // clear author combo box
+            manageBooksBookAuthorComboBox.removeAllItems();
 
             // update author combo box with all current authors
             manageBooksBookAuthorComboBox.addItem("N/A");
@@ -116,6 +137,9 @@ public class MainGUI {
                 String authorString = author.getFirstName() + " " + author.getSurname();
                 manageBooksBookAuthorComboBox.addItem(authorString);
             }
+
+            // clear publisher combo box
+            manageBooksBooksPublisherComboBox.removeAllItems();
 
             // update publisher combo box with all current publishers
             manageBooksBooksPublisherComboBox.addItem("N/A");
@@ -128,7 +152,7 @@ public class MainGUI {
         mainMenuManageAuthorsButton.addActionListener(e -> {
 
             changePanel(manageAuthorsPanel);
-            listOfBooks = bookHandler.getAllBooks();
+            listOfBooks = bookHandler.getAllBooks(sortAlgoChoice);
             listOfAuthors = authorHandler.getAllAuthors();
             listOfPublishers = publisherHandler.getAllPublishers();
             refreshAuthorList();
@@ -137,7 +161,7 @@ public class MainGUI {
         mainMenuManagePublishersButton.addActionListener(e -> {
 
             changePanel(managePublishersPanel);
-            listOfBooks = bookHandler.getAllBooks();
+            listOfBooks = bookHandler.getAllBooks(sortAlgoChoice);
             listOfAuthors = authorHandler.getAllAuthors();
             listOfPublishers = publisherHandler.getAllPublishers();
             refreshPublisherList();
@@ -155,14 +179,14 @@ public class MainGUI {
 
             try {
                 // will only not throw an exception if year field is filled with a valid integer
-                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText(), sortAlgoChoice);
             }
             catch (NumberFormatException ignored) {
                 // in any other case, will just pass in 1 as the year instead. could only return a false positive if a book year is 1 which is vanishingly unlikely in a real world scenario
-                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText(), sortAlgoChoice);
             }
             catch (NullPointerException ignored) {
-                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText());
+                listOfBooks = bookHandler.searchForBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), 1, findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText(), sortAlgoChoice);
             }
             refreshBookList();
             clearBookFields();
@@ -171,7 +195,7 @@ public class MainGUI {
         manageBooksAddBookButton.addActionListener(e -> {
             try {
                 if (bookHandler.addBook(manageBooksBookTitleTextField.getText(), findAuthorPKFromComboBox(), Integer.parseInt(manageBooksBookYearTextField.getText()), findPublisherPKFromComboBox(), manageBooksBookSubjectTextField.getText())) {
-                    listOfBooks = bookHandler.getAllBooks();
+                    listOfBooks = bookHandler.getAllBooks(sortAlgoChoice);
                     refreshBookList();
                     popUpMessage("Book added successfully");
                 }

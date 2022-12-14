@@ -141,4 +141,33 @@ public class AuthorDBHandler {
             return false;
         }
     }
+
+    public List<String> getAuthorsFromPK(List<Book> books) {
+
+        List<String> authorNameList = new ArrayList<>();
+
+        for (int i = 0; i < books.size(); i++) {
+
+            try {
+                // getting the connection using the sql url specified above
+                connection = DriverManager.getConnection(jdbcUrl);
+
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT authorSurname FROM authors WHERE authorPK = ?");
+                preparedStatement.setInt(1, books.get(i).getAuthor());
+
+                ResultSet authorResult = preparedStatement.executeQuery();
+
+                while (authorResult.next()) {
+
+                    String surname = authorResult.getString("authorSurname");
+
+                    authorNameList.add(surname);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error connecting to SQL database");
+                e.printStackTrace();
+            }
+        }
+        return authorNameList;
+    }
 }

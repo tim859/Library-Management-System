@@ -1,13 +1,32 @@
 class BookHandler {
 
     private val bookDBHandler = BookDBHandler()
+    private val sortAlgo = SortAlgo()
 
-    fun getAllBooks(): List<Book> {
-        return bookDBHandler.allBooksInDB
+    fun getAllBooks(sortAlgoChoice: String): List<Book> {
+        val bookList = bookDBHandler.allBooksInDB
+
+        return if (sortAlgoChoice == "bubble sort") {
+            sortAlgo.nestedBubbleSort(bookList)
+
+        } else if (sortAlgoChoice == "merge sort") {
+            sortAlgo.mergeSort(bookList)
+        } else {
+            bookList
+        }
     }
-    fun searchForBook(bookTitle: String, bookAuthor: Int, bookYear: Int, bookPublisher: Int, bookSubject: String): List<Book> {
+    fun searchForBook(bookTitle: String, bookAuthor: Int, bookYear: Int, bookPublisher: Int, bookSubject: String, sortAlgoChoice: String): List<Book> {
 
-        return bookDBHandler.searchDBForBook(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
+        val searchedBookList = bookDBHandler.searchDBForBook(bookTitle, bookAuthor, bookYear, bookPublisher, bookSubject)
+
+        return if (sortAlgoChoice == "bubble sort") {
+            sortAlgo.nestedBubbleSort(searchedBookList)
+
+        } else if (sortAlgoChoice == "merge sort") {
+            sortAlgo.mergeSort(searchedBookList)
+        } else {
+            searchedBookList
+        }
     }
 
     fun addBook(bookTitle: String, bookAuthor: Int, bookYear: Int, bookPublisher: Int, bookSubject: String): Boolean {
