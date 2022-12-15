@@ -44,20 +44,20 @@ class SortAlgo {
         return books
     }
 
-//    fun mergeSort(books: List<Book>): List<Book> {
-//
-//        val startTime = System.currentTimeMillis()
-//
-//        val sortedBookList = mergeSorting(books)
-//
-//        val endTime = System.currentTimeMillis()
-//        val elapsedTime = endTime - startTime
-//        println("Elapsed time: $elapsedTime ms")
-//
-//        return sortedBookList
-//    }
-
     fun mergeSort(books: List<Book>): List<Book> {
+
+        val startTime = System.nanoTime()
+
+        val sortedBookList = mergeSorting(books)
+
+        val endTime = System.nanoTime()
+        val elapsedTime = endTime - startTime
+        println("Elapsed time: $elapsedTime ns")
+
+        return sortedBookList
+    }
+
+    private fun mergeSorting(books: List<Book>): List<Book> {
 
         if (books.size <= 1) return books
 
@@ -65,7 +65,7 @@ class SortAlgo {
         val left = books.subList(0, middle)
         val right = books.subList(middle, books.size)
 
-        return merge(mergeSort(left), mergeSort(right))
+        return merge(mergeSorting(left), mergeSorting(right))
     }
 
     private fun merge(left: List<Book>, right: List<Book>): List<Book> {
